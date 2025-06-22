@@ -5,5 +5,7 @@ sudo systemctl restart docker.service
 
 for linux system data import 1860
 
+add folders: loki-data & prometheus-data
+
 allow access to prometheus folder
 sudo chown -R 65534:65534 ./prometheus-data
