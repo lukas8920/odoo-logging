@@ -1,0 +1,9 @@
+regularly check that /tmp/loki/delete-requests/ are deleted and delete requests are not accumalating
+
+set up max log file limits with daemon.json
+sudo systemctl restart docker.service
+
+for linux system data import 1860
+
+allow access to prometheus folder
+sudo chown -R 65534:65534 ./prometheus-data
