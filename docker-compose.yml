@@ -3,8 +3,6 @@ services:
     image: grafana/loki:3.5.0
     container_name: loki
     user: root
-    ports:
-      - "3100:3100"
     command: -config.file=/etc/loki/local-config.yaml
     volumes:
       - ./loki/loki-config.yaml:/etc/loki/local-config.yaml
@@ -27,8 +25,6 @@ services:
   prometheus:
     image: prom/prometheus
     container_name: prometheus
-    ports:
-      - "9090:9090"
     volumes:
       - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
       - ./prometheus/prometheus-data:/prometheus
@@ -43,8 +39,6 @@ services:
   node-exporter:
     image: prom/node-exporter
     container_name: node-exporter
-    ports:
-      - "9100:9100"
     restart: unless-stopped
     networks:
       - log-network
@@ -52,8 +46,6 @@ services:
   grafana:
     image: grafana/grafana:12.0.2
     container_name: grafana
-    ports:
-      - "3000:3000"
     environment:
       - GF_SECURITY_ADMIN_PASSWORD=admin
     depends_on:
@@ -63,4 +55,4 @@ services:
 
 networks:
   log-network:
-    driver: bridge
+    external: true
