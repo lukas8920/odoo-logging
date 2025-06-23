@@ -9,3 +9,6 @@ add folders: loki-data & prometheus-data
 
 allow access to prometheus folder
 sudo chown -R 65534:65534 ./prometheus-data
+
+allow access to loki folder
+sudo chown -R 10001:10001 ./loki-data
