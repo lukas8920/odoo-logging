@@ -1,0 +1,9 @@
+apiVersion: 1
+
+providers:
+  - name: 'Odoo Dashboards'
+    folder: 'Odoo Dashboards'
+    type: file
+    options:
+      path: /var/lib/grafana/dashboards
+
