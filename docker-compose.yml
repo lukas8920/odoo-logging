@@ -38,6 +38,8 @@ services:
   node-exporter:
     image: prom/node-exporter
     container_name: node-exporter
+    volumes:
+      - ./node-explorer/dir_metrics.prom:/var/lib/node_exporter/textfile_collector/dir_metrics.prom
     restart: unless-stopped
     networks:
       - log-network
