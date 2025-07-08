@@ -41,6 +41,8 @@ services:
     volumes:
       - ./node-explorer/dir_metrics.prom:/var/lib/node_exporter/textfile_collector/dir_metrics.prom
     restart: unless-stopped
+    command:
+      - '--collector.textfile.directory=/var/lib/node_exporter/textfile_collector'
     networks:
       - log-network
 
