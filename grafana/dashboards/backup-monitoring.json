@@ -1,0 +1,1077 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 2,
+  "links": [],
+  "panels": [
+    {
+      "datasource": {
+        "datasources": "Loki",
+        "type": "loki"
+      },
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 11,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 2,
+      "options": {
+        "dedupStrategy": "none",
+        "enableInfiniteScrolling": false,
+        "enableLogDetails": true,
+        "prettifyLogMessage": false,
+        "showCommonLabels": false,
+        "showLabels": false,
+        "showTime": false,
+        "sortOrder": "Descending",
+        "wrapLogMessage": false
+      },
+      "pluginVersion": "12.0.2",
+      "targets": [
+        {
+          "datasource": {
+            "datasources": "Loki",
+            "type": "loki"
+          },
+          "direction": "backward",
+          "editorMode": "builder",
+          "expr": "{container_name=\"backup-manager\"} |= ``",
+          "queryType": "range",
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "datasources": "Loki",
+            "type": "loki"
+          },
+          "direction": "backward",
+          "editorMode": "builder",
+          "expr": "{container_name=\"postgres-db\"} |= ``",
+          "hide": false,
+          "queryType": "range",
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "datasources": "Loki",
+            "type": "loki"
+          },
+          "direction": "backward",
+          "editorMode": "builder",
+          "expr": "{container_name=\"pentaho-carte\"} |= ``",
+          "hide": false,
+          "queryType": "range",
+          "refId": "C"
+        }
+      ],
+      "title": "Backup Monitoring",
+      "type": "logs"
+    },
+    {
+      "datasource": {
+        "datasources": "Prometheus",
+        "type": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "fillOpacity": 80,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineWidth": 1,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Base Directory Size"
+            },
+            "properties": [
+              {
+                "id": "custom.axisPlacement",
+                "value": "right"
+              },
+              {
+                "id": "unit",
+                "value": "decgbytes"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "Base file count"
+            },
+            "properties": [
+              {
+                "id": "custom.axisPlacement",
+                "value": "auto"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Raw size"
+            },
+            "properties": [
+              {
+                "id": "custom.hideFrom",
+                "value": {
+                  "legend": true,
+                  "tooltip": true,
+                  "viz": true
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Time"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "time:DD/YYYY"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 7,
+        "x": 0,
+        "y": 11
+      },
+      "id": 4,
+      "maxDataPoints": 4,
+      "options": {
+        "barRadius": 0,
+        "barWidth": 0.98,
+        "fullHighlight": false,
+        "groupWidth": 0.22,
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "orientation": "auto",
+        "showValue": "auto",
+        "stacking": "none",
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        },
+        "xField": "Time",
+        "xTickLabelRotation": 0,
+        "xTickLabelSpacing": 0
+      },
+      "pluginVersion": "12.0.2",
+      "targets": [
+        {
+          "datasource": {
+            "datasources": "Prometheus",
+            "type": "prometheus"
+          },
+          "disableTextWrap": false,
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "avg_over_time(base_directory_file_count[1d])",
+          "fullMetaSearch": false,
+          "includeNullMetadata": true,
+          "instant": true,
+          "interval": "1d",
+          "legendFormat": "Base file count",
+          "range": false,
+          "refId": "Base file count",
+          "useBackend": false
+        },
+        {
+          "datasource": {
+            "datasources": "Prometheus",
+            "type": "prometheus"
+          },
+          "disableTextWrap": false,
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "avg_over_time(base_directory_size_bytes[1d])",
+          "fullMetaSearch": false,
+          "hide": false,
+          "includeNullMetadata": true,
+          "instant": true,
+          "interval": "1d",
+          "legendFormat": "Raw size",
+          "range": false,
+          "refId": "Raw Size",
+          "useBackend": false
+        }
+      ],
+      "title": "Base Directory Metrics",
+      "transformations": [
+        {
+          "filter": {
+            "id": "byRefId",
+            "options": "/^(?:Raw Size)$/"
+          },
+          "id": "calculateField",
+          "options": {
+            "alias": "Base Directory Size",
+            "binary": {
+              "left": {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Raw size"
+                }
+              },
+              "operator": "/",
+              "right": {
+                "fixed": "1000000000"
+              }
+            },
+            "mode": "binary",
+            "reduce": {
+              "reducer": "sum"
+            }
+          }
+        }
+      ],
+      "type": "barchart"
+    },
+    {
+      "datasource": {
+        "datasources": "Prometheus",
+        "type": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "fillOpacity": 80,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineWidth": 1,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Wal Directory Size"
+            },
+            "properties": [
+              {
+                "id": "custom.axisPlacement",
+                "value": "right"
+              },
+              {
+                "id": "unit",
+                "value": "decgbytes"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "Base file count"
+            },
+            "properties": [
+              {
+                "id": "custom.axisPlacement",
+                "value": "auto"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Wal size"
+            },
+            "properties": [
+              {
+                "id": "custom.hideFrom",
+                "value": {
+                  "legend": true,
+                  "tooltip": true,
+                  "viz": true
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Time"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "time:DD/YYYY"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 7,
+        "x": 7,
+        "y": 11
+      },
+      "id": 5,
+      "maxDataPoints": 7,
+      "options": {
+        "barRadius": 0,
+        "barWidth": 0.98,
+        "fullHighlight": false,
+        "groupWidth": 0.22,
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "orientation": "auto",
+        "showValue": "auto",
+        "stacking": "none",
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        },
+        "xField": "Time",
+        "xTickLabelRotation": 0,
+        "xTickLabelSpacing": 0
+      },
+      "pluginVersion": "12.0.2",
+      "targets": [
+        {
+          "datasource": {
+            "datasources": "Prometheus",
+            "type": "prometheus"
+          },
+          "disableTextWrap": false,
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "avg_over_time(wal_directory_file_count[1d])",
+          "fullMetaSearch": false,
+          "includeNullMetadata": true,
+          "instant": true,
+          "interval": "1d",
+          "legendFormat": "Wal file count",
+          "range": false,
+          "refId": "Base file count",
+          "useBackend": false
+        },
+        {
+          "datasource": {
+            "datasources": "Prometheus",
+            "type": "prometheus"
+          },
+          "disableTextWrap": false,
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "avg_over_time(wal_directory_size_bytes[1d])",
+          "fullMetaSearch": false,
+          "hide": false,
+          "includeNullMetadata": true,
+          "instant": true,
+          "interval": "1d",
+          "legendFormat": "Wal size",
+          "range": false,
+          "refId": "Raw Size",
+          "useBackend": false
+        }
+      ],
+      "title": "Wal Directory Metrics",
+      "transformations": [
+        {
+          "filter": {
+            "id": "byRefId",
+            "options": "/^(?:Raw Size)$/"
+          },
+          "id": "calculateField",
+          "options": {
+            "alias": "Wal Directory Size",
+            "binary": {
+              "left": {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Wal size"
+                }
+              },
+              "operator": "/",
+              "right": {
+                "fixed": "1000000000"
+              }
+            },
+            "mode": "binary",
+            "reduce": {
+              "reducer": "sum"
+            }
+          }
+        }
+      ],
+      "type": "barchart"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "datasources": "Loki"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "dateTimeAsIso"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "labels"
+            },
+            "properties": [
+              {
+                "id": "custom.hidden",
+                "value": true
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Time"
+            },
+            "properties": [
+              {
+                "id": "custom.hidden",
+                "value": true
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Line"
+            },
+            "properties": [
+              {
+                "id": "custom.hidden",
+                "value": true
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "tsNs"
+            },
+            "properties": [
+              {
+                "id": "custom.hidden",
+                "value": true
+              },
+              {
+                "id": "custom.hidden",
+                "value": true
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "id"
+            },
+            "properties": [
+              {
+                "id": "custom.hidden",
+                "value": true
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Title"
+            },
+            "properties": [
+              {
+                "id": "custom.align",
+                "value": "left"
+              },
+              {
+                "id": "custom.width",
+                "value": 250
+              },
+              {
+                "id": "mappings",
+                "value": [
+                  {
+                    "options": {
+                      "1": {
+                        "index": 0,
+                        "text": "Last base jb run"
+                      },
+                      "2": {
+                        "index": 1,
+                        "text": "Last wal cleanup jb run"
+                      },
+                      "3": {
+                        "index": 3,
+                        "text": "Last base update"
+                      },
+                      "4": {
+                        "index": 2,
+                        "text": "Last wal update"
+                      },
+                      "5": {
+                        "index": 4,
+                        "text": "Last file metrics jb run"
+                      }
+                    },
+                    "type": "value"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "null"
+            },
+            "properties": [
+              {
+                "id": "custom.hidden",
+                "value": true
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Value"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 250
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 10,
+        "x": 14,
+        "y": 11
+      },
+      "id": 6,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "frameIndex": 0,
+        "showHeader": true,
+        "sortBy": []
+      },
+      "pluginVersion": "12.0.2",
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "datasources": "Loki"
+          },
+          "direction": "backward",
+          "editorMode": "code",
+          "expr": "{container_name=\"postgres-db\"} |~ \"Persisted encrypted WAL file\"",
+          "hide": false,
+          "maxLines": 1,
+          "queryType": "range",
+          "refId": "Last wal update"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "datasources": "Loki"
+          },
+          "direction": "backward",
+          "editorMode": "code",
+          "expr": "{container_name=\"pentaho-carte\"} |= `jb_base_backup - Job execution finished`",
+          "maxLines": 1,
+          "queryType": "range",
+          "refId": "Last base jb run"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "datasources": "Loki"
+          },
+          "direction": "backward",
+          "editorMode": "code",
+          "expr": "{container_name=\"pentaho-carte\"} |= `jb_wal_backup - Job execution finished`",
+          "hide": false,
+          "maxLines": 1,
+          "queryType": "range",
+          "refId": "Last wal clean up"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "datasources": "Loki"
+          },
+          "direction": "backward",
+          "editorMode": "code",
+          "expr": "{container_name=\"backup-manager\"} |= `Base Backup and cleanup completed`",
+          "hide": false,
+          "maxLines": 1,
+          "queryType": "range",
+          "refId": "Last base update"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "datasources": "Loki"
+          },
+          "direction": "backward",
+          "editorMode": "builder",
+          "expr": "{container_name=\"pentaho-carte\"} |= `jb_file_metrics - Job execution finished`",
+          "hide": false,
+          "maxLines": 1,
+          "queryType": "range",
+          "refId": "File Metrics"
+        }
+      ],
+      "title": "Job Metrics",
+      "transformations": [
+        {
+          "filter": {
+            "id": "byRefId",
+            "options": "/^(?:Last base jb run)$/"
+          },
+          "id": "calculateField",
+          "options": {
+            "alias": "Title",
+            "mode": "index",
+            "reduce": {
+              "reducer": "sum"
+            }
+          }
+        },
+        {
+          "filter": {
+            "id": "byRefId",
+            "options": "/^(?:Last base jb run)$/"
+          },
+          "id": "calculateField",
+          "options": {
+            "alias": "Value",
+            "mode": "reduceRow",
+            "reduce": {
+              "include": [
+                "Time"
+              ],
+              "reducer": "first"
+            }
+          }
+        },
+        {
+          "filter": {
+            "id": "byRefId",
+            "options": "/^(?:Last base jb run)$/"
+          },
+          "id": "calculateField",
+          "options": {
+            "alias": "Title",
+            "binary": {
+              "left": {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Title"
+                }
+              },
+              "right": {
+                "fixed": "1"
+              }
+            },
+            "mode": "binary",
+            "reduce": {
+              "reducer": "sum"
+            }
+          }
+        },
+        {
+          "filter": {
+            "id": "byRefId",
+            "options": "/^(?:Last wal clean up)$/"
+          },
+          "id": "calculateField",
+          "options": {
+            "alias": "Title",
+            "mode": "index",
+            "reduce": {
+              "reducer": "sum"
+            }
+          }
+        },
+        {
+          "filter": {
+            "id": "byRefId",
+            "options": "/^(?:Last wal clean up)$/"
+          },
+          "id": "calculateField",
+          "options": {
+            "alias": "Value",
+            "binary": {
+              "left": {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Time"
+                }
+              },
+              "right": {
+                "fixed": "2"
+              }
+            },
+            "mode": "reduceRow",
+            "reduce": {
+              "include": [
+                "Time"
+              ],
+              "reducer": "first"
+            }
+          }
+        },
+        {
+          "filter": {
+            "id": "byRefId",
+            "options": "/^(?:Last wal clean up)$/"
+          },
+          "id": "calculateField",
+          "options": {
+            "alias": "Title",
+            "binary": {
+              "left": {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Title"
+                }
+              },
+              "right": {
+                "fixed": "2"
+              }
+            },
+            "mode": "binary",
+            "reduce": {
+              "reducer": "sum"
+            }
+          }
+        },
+        {
+          "filter": {
+            "id": "byRefId",
+            "options": "/^(?:Last base update)$/"
+          },
+          "id": "calculateField",
+          "options": {
+            "alias": "Title",
+            "mode": "index",
+            "reduce": {
+              "reducer": "sum"
+            }
+          }
+        },
+        {
+          "filter": {
+            "id": "byRefId",
+            "options": "/^(?:Last base update)$/"
+          },
+          "id": "calculateField",
+          "options": {
+            "alias": "Value",
+            "mode": "reduceRow",
+            "reduce": {
+              "include": [
+                "Time"
+              ],
+              "reducer": "sum"
+            }
+          }
+        },
+        {
+          "filter": {
+            "id": "byRefId",
+            "options": "/^(?:Last base update)$/"
+          },
+          "id": "calculateField",
+          "options": {
+            "alias": "Title",
+            "binary": {
+              "left": {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Title"
+                }
+              },
+              "right": {
+                "fixed": "3"
+              }
+            },
+            "mode": "binary",
+            "reduce": {
+              "reducer": "sum"
+            }
+          }
+        },
+        {
+          "filter": {
+            "id": "byRefId",
+            "options": "/^(?:Last wal update)$/"
+          },
+          "id": "calculateField",
+          "options": {
+            "alias": "Title",
+            "mode": "index",
+            "reduce": {
+              "reducer": "sum"
+            }
+          }
+        },
+        {
+          "filter": {
+            "id": "byRefId",
+            "options": "/^(?:Last wal update)$/"
+          },
+          "id": "calculateField",
+          "options": {
+            "alias": "Value",
+            "mode": "reduceRow",
+            "reduce": {
+              "include": [
+                "Time"
+              ],
+              "reducer": "last"
+            }
+          }
+        },
+        {
+          "filter": {
+            "id": "byRefId",
+            "options": "/^(?:Last wal update)$/"
+          },
+          "id": "calculateField",
+          "options": {
+            "alias": "Title",
+            "binary": {
+              "left": {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Title"
+                }
+              },
+              "right": {
+                "fixed": "4"
+              }
+            },
+            "mode": "binary",
+            "reduce": {
+              "reducer": "sum"
+            }
+          }
+        },
+        {
+          "filter": {
+            "id": "byRefId",
+            "options": "/^(?:File Metrics)$/"
+          },
+          "id": "calculateField",
+          "options": {
+            "alias": "Title",
+            "mode": "index",
+            "reduce": {
+              "reducer": "sum"
+            }
+          }
+        },
+        {
+          "filter": {
+            "id": "byRefId",
+            "options": "/^(?:File Metrics)$/"
+          },
+          "id": "calculateField",
+          "options": {
+            "alias": "Value",
+            "mode": "reduceRow",
+            "reduce": {
+              "include": [
+                "Time"
+              ],
+              "reducer": "last"
+            }
+          }
+        },
+        {
+          "filter": {
+            "id": "byRefId",
+            "options": "/^(?:File Metrics)$/"
+          },
+          "id": "calculateField",
+          "options": {
+            "alias": "Title",
+            "binary": {
+              "left": {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Title"
+                }
+              },
+              "right": {
+                "fixed": "5"
+              }
+            },
+            "mode": "binary",
+            "reduce": {
+              "reducer": "sum"
+            }
+          }
+        },
+        {
+          "id": "merge",
+          "options": {}
+        }
+      ],
+      "type": "table"
+    }
+  ],
+  "preload": false,
+  "schemaVersion": 41,
+  "tags": [],
+  "templating": {
+    "list": []
+  },
+  "time": {
+    "from": "now-6h",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "browser",
+  "title": "Backup Monitoring",
+  "uid": "55e1b26b-8cb6-4cd8-95d2-dcba5ec2f3de",
+  "version": 6
+}
