@@ -49,6 +49,7 @@ services:
   grafana:
     image: grafana/grafana:12.0.2
     container_name: grafana
+    user: "1101:1102"
     volumes:
       - ./grafana/dashboards.yaml:/etc/grafana/provisioning/dashboards/dashboards.yaml
       - ./grafana/datasources.yaml:/etc/grafana/provisioning/datasources/datasources.yaml
