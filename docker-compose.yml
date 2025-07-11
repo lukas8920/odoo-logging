@@ -2,9 +2,10 @@ services:
   loki:
     image: grafana/loki:3.5.0
     container_name: loki
+    user: "1103:1104"
     command: -config.file=/etc/loki/local-config.yaml
     volumes:
-      - ./loki/loki-config.yaml:/etc/loki/local-config.yaml
+      - ./loki/loki-config.yaml:/etc/loki/local-config.yaml:ro
       - ./loki/loki-data:/tmp/loki
     networks:
       - log-network
