@@ -26,8 +26,9 @@ services:
   prometheus:
     image: prom/prometheus
     container_name: prometheus
+    user: "1104:1105"
     volumes:
-      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
       - ./prometheus/prometheus-data:/prometheus
     restart: unless-stopped
     command:
