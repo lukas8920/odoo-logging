@@ -1,0 +1,14 @@
+  - job_name: sudoer-logs
+    static_configs:
+      - targets:
+        - localhost
+        labels:
+          job: sudoers
+          __path__: /var/log/auth.log
+  - job_name: vault-logs
+    static_configs:
+      - targets:
+          - localhost
+        labels:
+          job: vault-logs
+          __path__: /var/vault/logs/audit.log
